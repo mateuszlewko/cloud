@@ -1,0 +1,19 @@
+- name: Ensure nginx is present or install it
+  apt: 
+    name: nginx 
+    state: installed 
+    update_cache: true
+
+- name: Ensure rsync is present or install it
+  apt: 
+    name: rsync 
+    state: installed 
+    update_cache: true
+
+- name: Copy web-app files to /var/www 
+  synchronize: 
+    src: ../files/
+    dest: /var/www
+    archive: yes
+  notify:
+    - restart nginx

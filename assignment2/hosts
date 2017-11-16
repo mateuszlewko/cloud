@@ -1,0 +1,6 @@
+[webapp]
+35.185.46.165 ansible_user=mateuszlewko
+35.196.129.158 ansible_user=mateuszlewko
+
+[loadbalancer]
+35.185.94.93 ansible_user=mateuszlewko

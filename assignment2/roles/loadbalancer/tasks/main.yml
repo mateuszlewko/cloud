@@ -1,0 +1,29 @@
+- name: Ensure haproxy is present or install it
+  apt: 
+    name: haproxy 
+    state: installed 
+    update_cache: true
+
+- name: Ensure rsync is present or install it
+  apt: 
+    name: rsync 
+    state: installed 
+    update_cache: true
+
+- name: Copy haproxy config files to /etc/default
+  synchronize: 
+    src: ../files/haproxy
+    dest: /etc/default/
+    archive: yes
+    delete: yes
+  notify:
+    - restart haproxy
+
+- name: Copy haproxy config files (load balancer) to /etc/haproxy
+  synchronize: 
+    src: ../files/haproxy.cfg
+    dest: /etc/haproxy/
+    archive: yes
+    delete: yes
+  notify:
+    - restart haproxy

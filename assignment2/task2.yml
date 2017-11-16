@@ -1,0 +1,5 @@
+- hosts: webapp
+  become: yes
+  tasks:
+    - include_role:
+        name: nginx

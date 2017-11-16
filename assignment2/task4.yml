@@ -1,0 +1,45 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Add alice
+      user:
+        name: alice
+        state: present
+        shell: "/bin/bash"
+        group: "www-data"
+        password: alice
+
+    - name: Add bob
+      user:
+        name: bob
+        state: present
+        shell: "/bin/bash"
+        group: "www-data"
+        password: bob
+
+    - name: Add bob ssh-key
+      authorized_key:
+        user: bob
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7IcpI6990bH9IZnQ1DvY4AW99eiYeglvIDqiBriutVcNsRhYobSeaxj+jPpPeABXh1SVMcYGqRJ47sGwsJJ4jxSkQhlMpo8z0QdNw02ocGz6eqV8pkKdFa29HkFSjUfOJjmAD8now5B8CsprZotGjgltyX5Sg/l1p9QdQ6kyCJOxAnG2/bHlBJMvsBBfLFdvRL6mM4RNUTCIo0FvFyg5beVa9n4/fZJeSbEYhA3dn3wMh9AyZvJVinxSPRWTnWUzCn3N6HtYJd1sJmqcitQpJ2wc7QPxM1FQ05FJ/zKVVBVjZmIVdRVFURwt9RAMN45ZjfPJRf7GnuBxnVqQYt4Wf"
+
+    - name: Add alice ssh-key
+      authorized_key:
+        user: alice
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7IcpI6990bH9IZnQ1DvY4AW99eiYeglvIDqiBriutVcNsRhYobSeaxj+jPpPeABXh1SVMcYGqRJ47sGwsJJ4jxSkQhlMpo8z0QdNw02ocGz6eqV8pkKdFa29HkFSjUfOJjmAD8now5B8CsprZotGjgltyX5Sg/l1p9QdQ6kyCJOxAnG2/bHlBJMvsBBfLFdvRL6mM4RNUTCIo0FvFyg5beVa9n4/fZJeSbEYhA3dn3wMh9AyZvJVinxSPRWTnWUzCn3N6HtYJd1sJmqcitQpJ2wc7QPxM1FQ05FJ/zKVVBVjZmIVdRVFURwt9RAMN45ZjfPJRf7GnuBxnVqQYt4Wf"
+
+- hosts: webapp
+  become: yes
+  tasks:
+    - name: Add www-data group
+      group:
+        name: "www-data"
+        state: present
+
+    - name: Set /var/www attributes
+      file:
+        path: /var/wwww/
+        owner: www-data
+        group: www-data
+        state: directory
+        recurse: yes
+        mode: 0660

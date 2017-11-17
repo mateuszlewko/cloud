@@ -1,0 +1,17 @@
+- name: Add users
+  user:
+    name: "{{ item.name }}"
+    state: present
+    shell: "/bin/bash"
+    group: webapp-data
+    password: "{{ item.pass }}"
+  with_items: 
+    "{{ users }}"
+
+- name: Add user ssh keys
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_key }}" 
+  with_items:
+    "{{ users }}"
+    

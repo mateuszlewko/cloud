@@ -17,3 +17,18 @@
     archive: yes
   notify:
     - restart nginx
+
+# task 4
+- name: Add webapp-data group
+  group:
+    name: webapp-data
+    state: present
+
+- name: Set /var/wwww attributes
+  file:
+    path: /var/wwww/
+    owner: www-data
+    group: webapp-data
+    state: directory
+    recurse: yes
+    mode: 0660

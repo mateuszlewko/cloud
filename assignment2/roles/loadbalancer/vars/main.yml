@@ -1,2 +1,3 @@
----
-# vars file for loadbalancer
+app-servers:
+  - { name: web1, addr: "35.185.46.165" }
+  - { name: web1, addr: "35.196.129.158" }

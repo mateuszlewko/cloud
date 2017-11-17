@@ -10,14 +10,13 @@
     state: installed 
     update_cache: true
 
-- name: Copy haproxy config files to /etc/default
-  synchronize: 
-    src: ../files/haproxy
-    dest: /etc/default/
-    archive: yes
-    delete: yes
-  notify:
-    - restart haproxy
+# - name: Copy haproxy config files to /etc/default
+#   synchronize: 
+#     src: ../files/haproxy
+#     dest: /etc/default/
+#     archive: yes
+#   notify:
+#     - restart haproxy
 
 - name: Copy haproxy config files (load balancer) to /etc/haproxy
   synchronize: 
@@ -27,3 +26,12 @@
     delete: yes
   notify:
     - restart haproxy
+
+- name: Append servers to config
+  lineinfiles:
+    dest: /etc/haproxy/haproxy.cfg
+    line: "    server {{item.name}} {{item.addr}} check"
+    state: present
+  with_items:
+    "{{app-servers}}"
+

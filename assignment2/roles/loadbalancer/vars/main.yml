@@ -1,3 +1,3 @@
-app-servers:
-  - { name: web1, addr: "35.185.46.165" }
-  - { name: web1, addr: "35.196.129.158" }
+appservers:
+  - { name: web1, addr: "35.185.46.165:80" }
+  - { name: web2, addr: "35.196.129.158:80" }

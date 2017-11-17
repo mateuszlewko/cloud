@@ -28,10 +28,12 @@
     - restart haproxy
 
 - name: Append servers to config
-  lineinfiles:
+  lineinfile:
     dest: /etc/haproxy/haproxy.cfg
     line: "    server {{item.name}} {{item.addr}} check"
     state: present
   with_items:
-    "{{app-servers}}"
+    "{{appservers}}"
+  notify:
+    - restart haproxy
 

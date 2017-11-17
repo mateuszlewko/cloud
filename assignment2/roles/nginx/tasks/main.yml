@@ -10,25 +10,26 @@
     state: installed 
     update_cache: true
 
-- name: Copy web-app files to /var/www 
-  synchronize: 
-    src: ../files/
-    dest: /var/www
-    archive: yes
-  notify:
-    - restart nginx
-
 # task 4
 - name: Add webapp-data group
   group:
     name: webapp-data
     state: present
 
-- name: Set /var/wwww attributes
-  file:
-    path: /var/wwww/
-    owner: www-data
-    group: webapp-data
-    state: directory
-    recurse: yes
-    mode: 0660
+- name: Copy web-app files to /var/www 
+  synchronize: 
+    src: ../files/
+    dest: /var/www
+    rsync_opts: "--chown=www-data:webapp-data" # --chmod=g+rw
+    archive: yes
+  notify:
+    - restart nginx
+
+# - name: Set /var/wwww attributes
+#   file:
+#     path: /var/wwww/
+#     owner: www-data
+#     group: webapp-data
+#     state: directory
+#     recurse: yes
+#     mode: 0660

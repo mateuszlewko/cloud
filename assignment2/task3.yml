@@ -1,9 +1,8 @@
 - hosts: loadbalancer
   become: yes
-  vars:
-    APP_SERVER1: "35.185.46.165:80"
-    APP_SERVER2: "35.196.129.158:80"
-
   tasks:
     - include_role:
         name: loadbalancer
+  vars:
+    APP_SERVER1: "35.185.46.165:80"
+    APP_SERVER2: "35.196.129.158:80"

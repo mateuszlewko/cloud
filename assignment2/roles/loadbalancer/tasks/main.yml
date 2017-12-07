@@ -30,7 +30,7 @@
 - name: Append servers to config
   lineinfile:
     dest: /etc/haproxy/haproxy.cfg
-    line: "    server {{item.name}} {{item.addr}} check"
+    line: "    server app {{item}} check"
     state: present
   with_items:
     "{{appservers}}"

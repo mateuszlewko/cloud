@@ -65,7 +65,7 @@ resource "google_compute_instance" "web1" {
 ### Database ###
 
 resource "google_sql_database_instance" "main-db-instance" {
-  name             = "main-db-instance"
+  name             = "main-db-instance1"
   database_version = "MYSQL_5_6"
   region           = "us-east1"
   project          = "mlewko-182913"
@@ -73,6 +73,14 @@ resource "google_sql_database_instance" "main-db-instance" {
   settings {
     tier            = "db-f1-micro"
     disk_autoresize = "true"
+
+    ip_configuration {
+      ipv4_enabled = true
+
+      authorized_networks = {
+        value = "${google_compute_instance.web1.network_interface.0.access_config.0.assigned_nat_ip}/32"
+      }
+    }
   }
 }
 
@@ -85,7 +93,7 @@ resource "google_sql_user" "main-db-root" {
   instance  = "${google_sql_database_instance.main-db-instance.name}"
   name      = "root"
   password  = "root"
-  host      = "${google_compute_instance.web1.name}"
+  host      = "${google_compute_instance.web1.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
 ### Firewall ### 
@@ -99,8 +107,8 @@ resource "google_compute_firewall" "ssh" {
     protocol = "tcp"
     ports    = ["22"]
   }	
-                   # my ip address    # uni ip address
-	source_ranges = ["83.26.108.8/32", "156.17.4.0/24"]
+                   # home ip address  # uni ip address # current ip 
+	source_ranges = ["83.26.108.8/32", "156.17.4.0/24", "94.254.242.65/32"]
 }
 
 resource "google_compute_firewall" "web" {
@@ -113,8 +121,6 @@ resource "google_compute_firewall" "web" {
     ports    = ["80", "443"]
   }
 }
-
-# TODO: Database firewall
 
 ### Outputs ###
 output "web1 server ip address" {

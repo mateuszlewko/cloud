@@ -5,13 +5,11 @@ provider "google" {
 
 module "load-balancer" {
   source = "./load-balancer/"
-  app-ip-addresses = ["35.196.161.95"]
-  # environment_name = "production"
-  # main_server_type = "n1-standard-1"
+  appservers = ["35.196.161.95"]
 }
 
 # module "app-server" {
-#   source = "./app-server/"
+#   source = "./app-server/"${format${formatlist("%s", aws_network_interface.database-lan2.*.private_ips, count.index)}${formatlist("%s", aws_network_interface.database-lan2.*.private_ips, count.index)}list("%s", aws_network_interface.database-lan2.*.private_ips, count.index)}
   
 #   # environment_name = "staging"
 #   # main_server_type = "f1-micro"

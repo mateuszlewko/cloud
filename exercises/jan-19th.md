@@ -90,3 +90,4 @@ As the platform grows, Cadreon will be able to easily meet demand. “We want to
 Cadreon is planning to explore additional AWS services—including Amazon Kinesis—as it expands the platform. “We are always interested in seeing how we can integrate additional AWS services into our platform,” says Tushar Patel. “We want to always keep our focus on building and enhancing our products, and AWS helps us do that more efficiently and cost effectively.”
 
 [source: https://aws.amazon.com/solutions/case-studies/cadreon/](https://aws.amazon.com/solutions/case-studies/cadreon/)
+[source: https://aws.amazon.com/solutions/case-studies/weatherrisk/](https://aws.amazon.com/solutions/case-studies/weatherrisk/)
